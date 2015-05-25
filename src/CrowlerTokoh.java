@@ -19,6 +19,7 @@ import crawlertokoh.GetReadHtml;
 import crawlertokoh.GetReadXML;
 import crawlertokoh.SearchObjectTokoh;
 import crawlertwitter.TwitterData;
+import crawlertwitter.TwitterDataStream;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -130,33 +131,37 @@ public class CrowlerTokoh {
     }
     
     
-    public static void main(String[] args) throws IOException, SAXException {
+    public static void main(String[] args) throws IOException, SAXException, InterruptedException {
         /*read_rsscofg();
         readxml_file();
         gethtml();
         search_key();
         */
         
+        //search by keyword
+        try {
+            BufferedReader buf;
+            String sCurrentLine;
+            String sParator       = "\t";
+            buf                   = new BufferedReader(new FileReader("data/result/nama_tokoh.txt"));
+            
+            while ((sCurrentLine  = buf.readLine()) != null) {
+                String[] data = sCurrentLine.split(sParator);
+                
+                TwitterData cr = new TwitterData();
+                System.out.println(data[0]+" >> @"+data[1]);
+                cr.datastream(data[1]);
+            } 
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-//        try {
-//            BufferedReader buf;
-//            String sCurrentLine;
-//            String sParator       = "\t";
-//            buf                   = new BufferedReader(new FileReader("data/result/nama_tokoh.txt"));
-//            
-//            while ((sCurrentLine  = buf.readLine()) != null) {
-//                String[] data = sCurrentLine.split(sParator);
-//                
-//                TwitterData cr = new TwitterData();
-//                System.out.println(data[0]+" >> @"+data[1]);
-//                cr.datastream(data[1]);
-//            } 
-//        } catch (FileNotFoundException ex) {
-//            Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        TwitterData cr = new TwitterData();
-        cr.streaming();
         
+        //streaming by keyword
+        TwitterDataStream twitter = new TwitterDataStream();
+        twitter.startTwitter();
+        Thread.sleep(20000);
+        twitter.stopTwitter();
     }
 
 }
