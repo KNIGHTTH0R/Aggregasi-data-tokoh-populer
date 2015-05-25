@@ -1,6 +1,4 @@
-
 /**
- * 
  * define('TWITTER_CONSUMER_KEY','DirV4f3gp3vIUVZDZH5W3k6mT');
  * define('TWITTER_CONSUMER_SECRET','GYPvZahLYb0JKw1etZlByBEtXZulpQnt8TcQfGtk0d7uFkjw6q');
  * define('OAUTH_TOKEN','58413351-7sWPSdF3cXvRdq7DwLWfnAgABX6bFJWNpC3LXWUyB');
@@ -29,6 +27,7 @@ public class TwitterData {
     private final String TWITTER_CONSUMER_SECRET = "GYPvZahLYb0JKw1etZlByBEtXZulpQnt8TcQfGtk0d7uFkjw6q";
     private final String OAUTH_TOKEN = "58413351-7sWPSdF3cXvRdq7DwLWfnAgABX6bFJWNpC3LXWUyB";
     private final String OAUTH_SECRET = "fUUwbYJmnDMAtHSLBuYycKzx9RvLKvcKK9Bke1WoqHljo";
+    
     
     public void datastream(String str_query)
     {
@@ -115,45 +114,5 @@ public class TwitterData {
             System.out.println("Failed to get timeline: " + te.getMessage());
             System.exit(-1);
         }
-    }
-    
-    public void streaming (){
-        StatusListener listener;
-        listener = new StatusListener(){
-            @Override
-            public void onStatus(Status status) {
-                System.out.println(status.getUser().getName() + " : " + status.getText());
-            }
-            @Override
-            public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {}
-            @Override
-            public void onTrackLimitationNotice(int numberOfLimitedStatuses) {}
-            @Override
-            public void onException(Exception ex) {
-                ex.printStackTrace();
-            }
-
-            @Override
-            public void onScrubGeo(long l, long l1) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-
-            @Override
-            public void onStallWarning(StallWarning sw) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        };
-        
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-          .setOAuthConsumerKey(TWITTER_CONSUMER_KEY)
-          .setOAuthConsumerSecret(TWITTER_CONSUMER_SECRET)
-          .setOAuthAccessToken(OAUTH_TOKEN)
-          .setOAuthAccessTokenSecret(OAUTH_SECRET);
-        TwitterStreamFactory tf   = new TwitterStreamFactory(cb.build());
-        TwitterStream twitterStream     = tf.getInstance();
-        
-        twitterStream.addListener(listener);
-        twitterStream.sample();
     }
 }
