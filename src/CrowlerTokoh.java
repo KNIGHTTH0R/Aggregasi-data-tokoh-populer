@@ -13,8 +13,6 @@
  * @author ahmadluky
  */
 
-
-
 import crawlertokoh.GetReadHtml;
 import crawlertokoh.GetReadXML;
 import crawlertokoh.SearchObjectTokoh;
@@ -36,58 +34,88 @@ import org.xml.sax.SAXException;
 public class CrowlerTokoh {
     
     /**
-     * Read rss.conf
-     * @throws java.io.IOException
+     * Searching Tokoh by using <b>REGEX</b>
      */
-
-    public static void read_rsscofg() throws IOException{
+    private static void search_key(String path_content_NewSPage, String file) { 
+        String s;
+        BufferedReader b    = null;
+        File f              = new File(path_content_NewSPage);
+        String[] paths      = f.list();
+        for(String path:paths)
+        {
+            try {
+                b = new BufferedReader(new FileReader(path_content_NewSPage + path));
+                SearchObjectTokoh search = new SearchObjectTokoh();
+                try {
+                    while ((s  = b.readLine()) != null) {
+                        search.RegexKetua(s, file);
+                    }
+                } catch (IOException ex) {
+                    Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+    
+    
+    public static void main(String[] args) throws IOException, SAXException, InterruptedException {
+        
+        String NAMA_TOKOH       = "data/result/nama_tokoh.txt";
+        String RSS_CONFIG       = "data/conf/rss.conf";
+        String LIST_URI         = "data/conf/list_uri.conf";
+        String path_NewSPage    = "data/html/";
+        
+        
+        
+        /**
+         * Main function for <b>RSS CONFIG</b> data in directory conf
+         * Rss Config for a read RSS XML from online news
+         * @result  lists link content news page in online news
+         * @conf    file name keyword : rss.conf
+         */
+        
         try {
-            GetReadXML xmlrss = new GetReadXML();
             BufferedReader buf;
             String sCurrentLine;
+            GetReadXML xmlrss     = new GetReadXML();
             String sParator       = "\t";
-            buf                   = new BufferedReader(new FileReader("data/conf/rss.conf"));
-            
+            buf                   = new BufferedReader(new FileReader(RSS_CONFIG));
             while ((sCurrentLine  = buf.readLine()) != null) {
-                String[] data = sCurrentLine.split(sParator);
+                String[] data     = sCurrentLine.split(sParator);
                 System.out.println(data[1]);
-                String Getxml = xmlrss.Getxml(new URL(data[1]), data[0]);
+                String Getxml     = xmlrss.Getxml(new URL(data[1]), data[0]);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+        
+        /**
+         * Read File XML in data/xml 
+         * Get link uri page content news
+         */
     
-    /**
-     * Read File XML in data/xml 
-     * ambil link berita--> save list_uri
-     * @throws org.xml.sax.SAXException
-     */
-
-    public static void readxml_file() throws SAXException{
-        File f = null;
+        File f  = null;
         String[] paths;
 
-        f = new File("data/xml");
-        paths = f.list();
+        f       = new File("data/xml");
+        paths   = f.list();
         for(String path:paths)
         {
             GetReadXML xml = new GetReadXML();
             xml.ReadXML("data/xml/"+path);
         }
-    }
-    
-    /**
-     * Get HTML code dari Uri
-     * @throws java.io.FileNotFoundException
-     */
-    public static void gethtml() throws FileNotFoundException{
-        GetReadHtml r = new GetReadHtml();
         
-        Date date = new Date();
+        /**
+         * Get HTML code dari Uri
+         * @throws java.io.FileNotFoundException
+         */
+        
+        GetReadHtml r               = new GetReadHtml();
+        Date date                   = new Date();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
-
-        BufferedReader b = new BufferedReader(new FileReader("data/conf/list_uri.conf"));
+        BufferedReader b            = new BufferedReader(new FileReader(LIST_URI));
         String s;
         try {
             while ((s  = b.readLine()) != null) {
@@ -98,70 +126,55 @@ public class CrowlerTokoh {
         } catch (IOException ex) {
             Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-    
-    /**
-     * Search Tokoh berdasarkan regex
-     */
-    private static void search_key() { 
-        String s;
-        BufferedReader b    = null;
-        File f              = new File("data/html");
-        String[] paths      = f.list();
         
-        for(String path:paths)
-        {
-            try {
-                b = new BufferedReader(new FileReader("data/html/" + path));
-                
-                SearchObjectTokoh search = new SearchObjectTokoh();
-                
-                try {
-                    while ((s  = b.readLine()) != null) {
-                        search.RegexKetua(s, "data/result/nama_tokoh.txt");
-                    }
-                } catch (IOException ex) {
-                    Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
-                }
-
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    
-    
-    public static void main(String[] args) throws IOException, SAXException, InterruptedException {
-        /*read_rsscofg();
-        readxml_file();
-        gethtml();
-        search_key();
-        */
+        /**
+         * Main function for search or matching string.
+         * @resutl  get nama tokoh on news page
+         */
         
-        //search by keyword
+        search_key(path_NewSPage, NAMA_TOKOH);
+        
+        
+        /**
+         * Main function for get <b>SEARCH</b> data twitter by keyword defined in directory result
+         * file name keyword : nama_tokoh.txt
+         */
+        
         try {
             BufferedReader buf;
             String sCurrentLine;
             String sParator       = "\t";
-            buf                   = new BufferedReader(new FileReader("data/result/nama_tokoh.txt"));
+            buf                   = new BufferedReader(new FileReader(NAMA_TOKOH));
             
             while ((sCurrentLine  = buf.readLine()) != null) {
-                String[] data = sCurrentLine.split(sParator);
-                
-                TwitterData cr = new TwitterData();
+                String[] data       = sCurrentLine.split(sParator);
+                TwitterData cr      = new TwitterData();
                 System.out.println(data[0]+" >> @"+data[1]);
                 cr.datastream(data[1]);
             } 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(TwitterDataStream.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
-        //streaming by keyword
-        TwitterDataStream twitter = new TwitterDataStream();
-        twitter.startTwitter();
-        Thread.sleep(20000);
-        twitter.stopTwitter();
+        /**
+         * Main function for get <b>STREAMING</b> data twitter by keyword defined in directory result
+         * file name keyword : nama_tokoh.txt
+         */
+        
+        try {
+            BufferedReader buf;
+            String sCurrentLine;
+            String sParator             = "\t";
+            buf                         = new BufferedReader(new FileReader(NAMA_TOKOH));
+            TwitterDataStream twitter   = new TwitterDataStream();
+            
+            while ((sCurrentLine  = buf.readLine()) != null) {
+                String[] keyword = sCurrentLine.split(sParator);
+                twitter.startTwitter(keyword);
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(TwitterDataStream.class.getName()).log(Level.SEVERE, null, ex);
+        }   
     }
-
 }

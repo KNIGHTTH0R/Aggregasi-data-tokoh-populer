@@ -12,7 +12,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Properties;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -29,12 +28,12 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterDataStream {
     
     
-    private final String TWITTER_CONSUMER_KEY = "DirV4f3gp3vIUVZDZH5W3k6mT";
-    private final String TWITTER_CONSUMER_SECRET = "GYPvZahLYb0JKw1etZlByBEtXZulpQnt8TcQfGtk0d7uFkjw6q";
-    private final String OAUTH_TOKEN = "58413351-7sWPSdF3cXvRdq7DwLWfnAgABX6bFJWNpC3LXWUyB";
-    private final String OAUTH_SECRET = "fUUwbYJmnDMAtHSLBuYycKzx9RvLKvcKK9Bke1WoqHljo";
+    private final String TWITTER_CONSUMER_KEY       = "DirV4f3gp3vIUVZDZH5W3k6mT";
+    private final String TWITTER_CONSUMER_SECRET    = "GYPvZahLYb0JKw1etZlByBEtXZulpQnt8TcQfGtk0d7uFkjw6q";
+    private final String OAUTH_TOKEN                = "58413351-7sWPSdF3cXvRdq7DwLWfnAgABX6bFJWNpC3LXWUyB";
+    private final String OAUTH_SECRET               = "fUUwbYJmnDMAtHSLBuYycKzx9RvLKvcKK9Bke1WoqHljo";
     
-    private TwitterStream twitterStream; 
+    private final TwitterStream twitterStream; 
     private String[] keywords;
     FileOutputStream fos;
     Csv c;
@@ -51,17 +50,11 @@ public class TwitterDataStream {
         
     }
     
-    public void startTwitter() {
- 
-        c                   = new Csv();
-//        String keywordString = prop.getProperty("@jokowi_do2, @Pak_JK");
-//        keywords = keywordString.split(",");
-//        for (int i = 0; i < keywords.length; i++) {
-//            keywords[i] = keywords[i].trim();
-//        }
-        String keywords[] = {"@jokowi_do2", "@Pak_JK"};
+    public void startTwitter(String keyword[]) {
+        
+        c   = new Csv();
         twitterStream.addListener(listener);
-        System.out.println("Starting down Twitter sample stream...");
+        System.out.println("Starting down Twitter stream...");
         FilterQuery query = new FilterQuery().track(keywords);
         twitterStream.filter(query);
  
@@ -69,9 +62,8 @@ public class TwitterDataStream {
     
     public void stopTwitter() {
  
-        System.out.println("Shutting down Twitter sample stream...");
+        System.out.println("Shutting down Twitter stream...");
         twitterStream.shutdown();
- 
         try {
             fos.close();
         } catch (IOException e) {
@@ -82,6 +74,7 @@ public class TwitterDataStream {
     StatusListener listener = new StatusListener() {
  
         Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        @Override
         public void onStatus(Status status) {
             System.out.println(status.getUser().getScreenName() + ": " + status.getText() + " > " + formatter.format(status.getCreatedAt()));
             System.out.println("timestamp : "+ String.valueOf(status.getCreatedAt().getTime()));
@@ -96,10 +89,15 @@ public class TwitterDataStream {
                 e.printStackTrace();
             }
         }
+        @Override
         public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {}
+        @Override
         public void onTrackLimitationNotice(int numberOfLimitedStatuses) {}
+        @Override
         public void onScrubGeo(long userId, long upToStatusId) {}
+        @Override
         public void onException(Exception ex) {}
+        @Override
         public void onStallWarning(StallWarning warning) {}
     };
 }
