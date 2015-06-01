@@ -56,7 +56,7 @@ public class TwitterData {
                             + tweet.getCreatedAt() + ""
                             + tweet.getGeoLocation());
                     
-                    
+                    // create data file csv
                     try {
                         c.writeCsvFile(str_query+"opinion",
                                 String.valueOf(tweet.getId()),
@@ -101,6 +101,8 @@ public class TwitterData {
             System.out.println("Showing @" + user + "'s user timeline. Count :"+ statuses.size());
             for (Status status : statuses) {
                 System.out.println("@" + status.getUser().getScreenName() + " - " + status.getText());
+                
+                // create data file csv
                 c.writeCsvFile(user,
                             String.valueOf(status.getId()),
                             status.getUser().getScreenName(),

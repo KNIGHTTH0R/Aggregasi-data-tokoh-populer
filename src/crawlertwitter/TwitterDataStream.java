@@ -79,6 +79,7 @@ public class TwitterDataStream {
             System.out.println(status.getUser().getScreenName() + ": " + status.getText() + " > " + formatter.format(status.getCreatedAt()));
             System.out.println("timestamp : "+ String.valueOf(status.getCreatedAt().getTime()));
             try {
+                // create data file csv
                 c.writeCsvFile("stream_opinion",
                                 String.valueOf(status.getId()),
                                 status.getUser().getScreenName(),

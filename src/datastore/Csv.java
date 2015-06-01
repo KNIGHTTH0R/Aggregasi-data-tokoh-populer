@@ -17,7 +17,7 @@ public class Csv {
     
     public void writeCsvFile(String fileName, String id, String name, String tweet, String date, String geo) throws IOException {
         
-        File file           = new File("data/result/datatwitter/" + fileName +".csv");
+        File file           = new File("data/result/datatwitter/csv/" + fileName +".csv");
         if (!file.exists()) {
             file.createNewFile();
         }
