@@ -68,7 +68,6 @@ public class CrowlerTokoh {
         String path_NewSPage    = "data/html/";
         
         
-        
         /**
          * Main function for <b>RSS CONFIG</b> data in directory conf
          * Rss Config for a read RSS XML from online news
@@ -114,7 +113,7 @@ public class CrowlerTokoh {
         
         GetReadHtml r               = new GetReadHtml();
         Date date                   = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss") ;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss"); 
         BufferedReader b            = new BufferedReader(new FileReader(LIST_URI));
         String s;
         try {
@@ -177,4 +176,5 @@ public class CrowlerTokoh {
             Logger.getLogger(TwitterDataStream.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
+    
 }
