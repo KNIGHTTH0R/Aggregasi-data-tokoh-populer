@@ -85,7 +85,7 @@ public class TwitterDataStream {
                                 status.getUser().getScreenName(),
                                 status.getText(),
                                 formatter.format(status.getCreatedAt()),
-                                ""+status.getGeoLocation()+"");
+                                ""  + status.getGeoLocation()+"");
             } catch (IOException e) {
                 e.printStackTrace();
             }
