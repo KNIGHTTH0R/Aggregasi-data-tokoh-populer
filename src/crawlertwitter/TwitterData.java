@@ -117,4 +117,36 @@ public class TwitterData {
             System.exit(-1);
         }
     }
+    
+    public void InfoUser (String at_user) throws IOException{
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true)
+          .setOAuthConsumerKey(TWITTER_CONSUMER_KEY)
+          .setOAuthConsumerSecret(TWITTER_CONSUMER_SECRET)
+          .setOAuthAccessToken(OAUTH_TOKEN)
+          .setOAuthAccessTokenSecret(OAUTH_SECRET);
+        TwitterFactory tf   = new TwitterFactory(cb.build());
+        Twitter twitter     = tf.getInstance();
+        
+        try {
+            Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            User user           = twitter.showUser(at_user); 
+            if (user.getStatus() != null) {
+                System.out.println("@" + user.getScreenName() + " - " + user.getDescription() +
+                                   "\n Location : " + user.getLocation() +
+                                   "\n Lang :" + user.getLang()  +
+                                   "\n Flolower :" + user.getFollowersCount() +
+                                   "\n Following :" + user.getFriendsCount() +
+                                   "\n Image :"   + user.getBiggerProfileImageURLHttps()
+                                    );
+            } else {
+                // protected account
+                System.out.println("@" + user.getScreenName());
+            }
+        } catch (TwitterException te) {
+            te.printStackTrace();
+            System.out.println("Failed to get timeline: " + te.getMessage());
+            System.exit(-1);
+        }
+    }
 }
