@@ -1,6 +1,6 @@
 # Aggregasi Data
 
-### * Deskripsi
+#### Deskripsi
 Applikasi yang dibuat dalam bahasa pemrograman java untuk mencari tokoh yang dibicarakan pada media online (contoh : detik.com, kompas.com, tempo.com dll). 
 
 Rss media online digunakan dalam program ini. Hasil yang didapatkan adalah list tokoh yang atau yang di bicarakan pada artikel media tersebut. Selanjutnya program akan mengambil data dari twitter berdasarkan keyword list tokoh tersebut.
@@ -17,7 +17,7 @@ Library yang digunakan :<br/>
 1. Twitter4j  <a href="twitter4j.org"> http://twitter4j.org</a>
 2. ......
 
-### * Media Penyimpanan
+#### Media Penyimpanan
 
 Data yang didapatkan disimpan pada :
 
