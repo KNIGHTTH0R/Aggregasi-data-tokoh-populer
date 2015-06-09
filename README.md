@@ -13,7 +13,8 @@ Contoh :
 | -- | -- |
 | Jusuf Kalla | @Pak_JK , pak Kalla , JK |
 
-Library yang digunakan :<br/>
+Library yang digunakan :
+
 1. Twitter4j  <a href="twitter4j.org"> http://twitter4j.org</a>
 2. ......
 
