@@ -9,10 +9,9 @@ Sebelum applikasi meng-*get* data dari twitter pengguna (user) menambahkan kemun
 
 Contoh :
 
-| 0:0 | 1:0 |
-| -- | -- |
-| 0:2 | 1:2 |
-
+```
+Jusuf Kalla : @Pak_JK , pak Kalla , JK
+```
 
 Library yang digunakan :
 
