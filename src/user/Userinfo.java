@@ -1,4 +1,10 @@
-package TimelineUser;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+package user;
 
 import crawlertwitter.TwitterData;
 import java.io.BufferedReader;
@@ -12,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author ahmadluky
  */
-public class CrowlerTimelineUser {
+public class Userinfo {
     
     public static void main(String[] args) throws IOException{
       /**
@@ -26,15 +32,14 @@ public class CrowlerTimelineUser {
             String sCurrentLine;
             String sParator             = "\t";
             buf                         = new BufferedReader(new FileReader(NAMA_TOKOH));
-            TwitterData twitterTimeline         = new TwitterData();
+            TwitterData twitterUserinfo = new TwitterData();
             
             while ((sCurrentLine  = buf.readLine()) != null) {
                 String[] keyword = sCurrentLine.split(sParator);
-                twitterTimeline.datatimeline(keyword[1]);
+                twitterUserinfo.InfoUser(keyword[1]);
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(TwitterData.class.getName()).log(Level.SEVERE, null, ex);
-        }   
-        
+        }    
     }
 }
