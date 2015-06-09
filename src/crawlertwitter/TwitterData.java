@@ -1,11 +1,4 @@
-/**
- * define('TWITTER_CONSUMER_KEY','DirV4f3gp3vIUVZDZH5W3k6mT');
- * define('TWITTER_CONSUMER_SECRET','GYPvZahLYb0JKw1etZlByBEtXZulpQnt8TcQfGtk0d7uFkjw6q');
- * define('OAUTH_TOKEN','58413351-7sWPSdF3cXvRdq7DwLWfnAgABX6bFJWNpC3LXWUyB');
- * define('OAUTH_SECRET','fUUwbYJmnDMAtHSLBuYycKzx9RvLKvcKK9Bke1WoqHljo');
- * define('TWEET_ERROR_INTERVAL',10);
- * define('TWEET_ERROR_ADDRESS','*****');
- */
+
 package crawlertwitter;
 
 import datastore.Csv;
@@ -23,22 +16,21 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class TwitterData {
     
-    private final String TWITTER_CONSUMER_KEY = "DirV4f3gp3vIUVZDZH5W3k6mT";
-    private final String TWITTER_CONSUMER_SECRET = "GYPvZahLYb0JKw1etZlByBEtXZulpQnt8TcQfGtk0d7uFkjw6q";
-    private final String OAUTH_TOKEN = "58413351-7sWPSdF3cXvRdq7DwLWfnAgABX6bFJWNpC3LXWUyB";
-    private final String OAUTH_SECRET = "fUUwbYJmnDMAtHSLBuYycKzx9RvLKvcKK9Bke1WoqHljo";
+    private Twitter twitter; 
     
+    public TwitterData(){
+        ConfigurationBuilder cb = new ConfigurationBuilder();
+        cb.setDebugEnabled(true)
+          .setOAuthConsumerKey(utils.OAuthUtils.TWITTER_CONSUMER_KEY)
+          .setOAuthConsumerSecret(utils.OAuthUtils.TWITTER_CONSUMER_SECRET)
+          .setOAuthAccessToken(utils.OAuthUtils.OAUTH_TOKEN)
+          .setOAuthAccessTokenSecret(utils.OAuthUtils.OAUTH_SECRET);
+        TwitterFactory tf   = new TwitterFactory(cb.build());
+        twitter     = tf.getInstance();
+    }
     
     public void datastream(String str_query)
     {
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-          .setOAuthConsumerKey(TWITTER_CONSUMER_KEY)
-          .setOAuthConsumerSecret(TWITTER_CONSUMER_SECRET)
-          .setOAuthAccessToken(OAUTH_TOKEN)
-          .setOAuthAccessTokenSecret(OAUTH_SECRET);
-        TwitterFactory tf   = new TwitterFactory(cb.build());
-        Twitter twitter     = tf.getInstance();
 
         try {
             Csv c               = new Csv();
@@ -82,15 +74,6 @@ public class TwitterData {
     
     public void datatimeline(String user) throws IOException{
         
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-          .setOAuthConsumerKey(TWITTER_CONSUMER_KEY)
-          .setOAuthConsumerSecret(TWITTER_CONSUMER_SECRET)
-          .setOAuthAccessToken(OAUTH_TOKEN)
-          .setOAuthAccessTokenSecret(OAUTH_SECRET);
-        TwitterFactory tf   = new TwitterFactory(cb.build());
-        Twitter twitter     = tf.getInstance();
-        
         try {
             Csv c               = new Csv();
             Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -112,21 +95,13 @@ public class TwitterData {
                 
             }
         } catch (TwitterException te) {
-            te.printStackTrace();
+            te.printStackTrace(); 
             System.out.println("Failed to get timeline: " + te.getMessage());
             System.exit(-1);
         }
     }
     
     public void InfoUser (String at_user) throws IOException{
-        ConfigurationBuilder cb = new ConfigurationBuilder();
-        cb.setDebugEnabled(true)
-          .setOAuthConsumerKey(TWITTER_CONSUMER_KEY)
-          .setOAuthConsumerSecret(TWITTER_CONSUMER_SECRET)
-          .setOAuthAccessToken(OAUTH_TOKEN)
-          .setOAuthAccessTokenSecret(OAUTH_SECRET);
-        TwitterFactory tf   = new TwitterFactory(cb.build());
-        Twitter twitter     = tf.getInstance();
         
         try {
             Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -144,8 +119,8 @@ public class TwitterData {
                 System.out.println("@" + user.getScreenName());
             }
         } catch (TwitterException te) {
-            te.printStackTrace();
-            System.out.println("Failed to get timeline: " + te.getMessage());
+            te.printStackTrace(); 
+            System.out.println("Failed to get Info User: " + te.getMessage());
             System.exit(-1);
         }
     }
