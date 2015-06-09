@@ -27,12 +27,6 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class TwitterDataStream {
     
-    
-    private final String TWITTER_CONSUMER_KEY       = "DirV4f3gp3vIUVZDZH5W3k6mT";
-    private final String TWITTER_CONSUMER_SECRET    = "GYPvZahLYb0JKw1etZlByBEtXZulpQnt8TcQfGtk0d7uFkjw6q";
-    private final String OAUTH_TOKEN                = "58413351-7sWPSdF3cXvRdq7DwLWfnAgABX6bFJWNpC3LXWUyB";
-    private final String OAUTH_SECRET               = "fUUwbYJmnDMAtHSLBuYycKzx9RvLKvcKK9Bke1WoqHljo";
-    
     private final TwitterStream twitterStream; 
     private String[] keywords;
     FileOutputStream fos;
@@ -42,10 +36,10 @@ public class TwitterDataStream {
         
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
-          .setOAuthConsumerKey(TWITTER_CONSUMER_KEY)
-          .setOAuthConsumerSecret(TWITTER_CONSUMER_SECRET)
-          .setOAuthAccessToken(OAUTH_TOKEN)
-          .setOAuthAccessTokenSecret(OAUTH_SECRET);
+          .setOAuthConsumerKey(utils.OAuthUtils.TWITTER_CONSUMER_KEY)
+          .setOAuthConsumerSecret(utils.OAuthUtils.TWITTER_CONSUMER_SECRET)
+          .setOAuthAccessToken(utils.OAuthUtils.OAUTH_TOKEN)
+          .setOAuthAccessTokenSecret(utils.OAuthUtils.OAUTH_SECRET);
         twitterStream = new TwitterStreamFactory(cb.build()).getInstance();
         
     }
