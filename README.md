@@ -9,9 +9,10 @@ Sebelum applikasi meng-*get* data dari twitter pengguna (user) menambahkan kemun
 
 Contoh :
 
-| Tokoh | Kemungkinan Keyword |
+| 0:0 | 1:0 |
 | -- | -- |
-| Jusuf Kalla | @Pak_JK , pak Kalla , JK |
+| 0:2 | 1:2 |
+
 
 Library yang digunakan :
 
