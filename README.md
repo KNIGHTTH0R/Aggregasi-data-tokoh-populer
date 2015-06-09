@@ -22,5 +22,5 @@ Library yang digunakan :<br/>
 Data yang didapatkan disimpan pada :
 
 1. Csv File
-2. MongoDb 
+2. MongoDb <on development>
 
