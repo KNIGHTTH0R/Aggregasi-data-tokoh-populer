@@ -5,6 +5,7 @@ import datastore.Csv;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import twitter4j.*;
@@ -16,7 +17,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class TwitterData {
     
-    private Twitter twitter; 
+    private final Twitter twitter; 
     
     public TwitterData(){
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -26,17 +27,17 @@ public class TwitterData {
           .setOAuthAccessToken(utils.OAuthUtils.OAUTH_TOKEN)
           .setOAuthAccessTokenSecret(utils.OAuthUtils.OAUTH_SECRET);
         TwitterFactory tf   = new TwitterFactory(cb.build());
-        twitter     = tf.getInstance();
+        twitter             = tf.getInstance();
     }
     
-    public void datastream(String str_query)
+    public void datasearch(String str_query)
     {
-
+        
         try {
             Csv c               = new Csv();
             Query query         = new Query(str_query);
             Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                        
+            Date date           = new Date();
             QueryResult result;
             do {
                 result = twitter.search(query);
@@ -50,10 +51,10 @@ public class TwitterData {
                     
                     // create data file csv
                     try {
-                        c.writeCsvFile(str_query+"opinion",
+                        c.writeCsvFile(str_query    +   "opinion_" +   date,
                                 String.valueOf(tweet.getId()),
                                 tweet.getUser().getScreenName(),
-                                tweet.getText(),
+                                tweet.getText().replaceAll("\n", ""),
                                 formatter.format(tweet.getCreatedAt()),
                                 ""+tweet.getGeoLocation()+"");
                     } catch (IOException ex) {

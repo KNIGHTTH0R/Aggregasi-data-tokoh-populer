@@ -12,7 +12,7 @@ import java.io.IOException;
 public class Csv {
 
     //Delimiter used in CSV file
-    private static final String COMMA_DELIMITER = ",";
+    private static final String DELIMITER = "||";
     private static final String NEW_LINE_SEPARATOR = "\n";
     
     public void writeCsvFile(String fileName, String id, String name, String tweet, String date, String geo) throws IOException {
@@ -26,13 +26,13 @@ public class Csv {
         try {
             fileWriter = new FileWriter(file, true);
             fileWriter.append(id);
-            fileWriter.append(COMMA_DELIMITER);
+            fileWriter.append(DELIMITER);
             fileWriter.append(name);
-            fileWriter.append(COMMA_DELIMITER);
+            fileWriter.append(DELIMITER);
             fileWriter.append(tweet);
-            fileWriter.append(COMMA_DELIMITER);
+            fileWriter.append(DELIMITER);
             fileWriter.append(date);
-            fileWriter.append(COMMA_DELIMITER);
+            fileWriter.append(DELIMITER);
             fileWriter.append(geo);
             fileWriter.append(NEW_LINE_SEPARATOR);
         } catch (Exception e) {
