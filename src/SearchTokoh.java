@@ -43,10 +43,10 @@ public class SearchTokoh {
                         search.RegexKetua(s, utils.TokohUntils.NAMA_TOKOH);
                     }
                 } catch (IOException ex) {
-                    Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(SearchTokoh.class.getName()).log(Level.SEVERE, null, ex);
                 }
             } catch (FileNotFoundException ex) {
-                Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(SearchTokoh.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

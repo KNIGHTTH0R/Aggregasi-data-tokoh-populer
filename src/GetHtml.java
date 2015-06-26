@@ -10,11 +10,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.xml.sax.SAXException;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 /**
  *
@@ -42,7 +37,7 @@ public class GetHtml {
                 System.out.println(s);
             }
         } catch (IOException ex) {
-            Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetHtml.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

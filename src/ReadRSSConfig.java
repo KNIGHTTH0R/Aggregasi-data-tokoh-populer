@@ -42,7 +42,7 @@ public class ReadRSSConfig {
                 String Getxml     = xmlrss.Getxml(new URL(data[1]), data[0]);
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(CrowlerTokoh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadRSSConfig.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

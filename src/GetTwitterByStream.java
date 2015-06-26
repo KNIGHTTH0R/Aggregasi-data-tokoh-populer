@@ -34,7 +34,7 @@ public class GetTwitterByStream {
                 twitter.startTwitter(keyword);
             }
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TwitterDataStream.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetTwitterByStream.class.getName()).log(Level.SEVERE, null, ex);
         }   
     }
 }

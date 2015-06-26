@@ -34,7 +34,7 @@ public class GetTwitterBySeach {
                 cr.datasearch(data[1]);
             } 
         } catch (FileNotFoundException ex) {
-            Logger.getLogger(TwitterDataStream.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(GetTwitterBySeach.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     
