@@ -25,12 +25,14 @@ public class GetTwitterByStream {
         try {
             BufferedReader buf;
             String sCurrentLine;
-            String sParator             = "\t";
+            String sParator             = ":";
             buf                         = new BufferedReader(new FileReader(utils.TokohUntils.NAMA_TOKOH));
             TwitterDataStream twitter   = new TwitterDataStream();
             
             while ((sCurrentLine  = buf.readLine()) != null) {
                 String[] keyword = sCurrentLine.split(sParator);
+                //String[] keyword  = {"Jokowi","jokowi_do2"};
+                System.out.println(keyword[0]+" >> @"+keyword[1]);
                 twitter.startTwitter(keyword);
             }
         } catch (FileNotFoundException ex) {
