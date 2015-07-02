@@ -12,6 +12,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -28,9 +29,8 @@ import twitter4j.conf.ConfigurationBuilder;
 public class TwitterDataStream {
     
     private final TwitterStream twitterStream; 
-    private String[] keywords;
+    String label = "";
     FileOutputStream fos;
-    Csv c;
     
     public TwitterDataStream(){
         
@@ -44,9 +44,12 @@ public class TwitterDataStream {
         
     }
     
-    public void startTwitter(String keyword[]) {
+    public void startTwitter(String[] keywords) {
         
-        c   = new Csv();
+        for (int i = 0; i < keywords.length; i++) {
+            this.label += "_"+keywords[i];
+        }
+        
         twitterStream.addListener(listener);
         System.out.println("Starting down Twitter stream...");
         FilterQuery query = new FilterQuery().track(keywords);
@@ -67,14 +70,17 @@ public class TwitterDataStream {
     
     StatusListener listener = new StatusListener() {
  
+        Csv c               = new Csv();
         Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date           = new Date();
         @Override
         public void onStatus(Status status) {
+            System.out.println(label+" __timestamp : "+ String.valueOf(status.getCreatedAt().getTime()));
             System.out.println(status.getUser().getScreenName() + ": " + status.getText() + " > " + formatter.format(status.getCreatedAt()));
-            System.out.println("timestamp : "+ String.valueOf(status.getCreatedAt().getTime()));
+            
             try {
-                // create data file csv
-                c.writeCsvFile("stream_opinion",
+//                 create data file csv
+                c.writeCsvFile("stream_"+label+"_"+date,
                                 String.valueOf(status.getId()),
                                 status.getUser().getScreenName(),
                                 status.getText(),
