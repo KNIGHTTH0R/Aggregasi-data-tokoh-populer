@@ -11,5 +11,5 @@
  * [2] Sistem membaca rss.cof yang kemudian xml file disimpan di dir /xml (done)
  * [3] Sistem membaca xml file dan mengambil uri dari setiap judul berita yang selanjutnya di <append> ke file list_uri.conf
  * [4] Sistem membaca file list_uri dan mendapatkan html code dari server (internet) disimpan di /html
- * [5] lakukan proses DOM dan REGEX untuk mendapatkan nama pada berita.
+ * [5] lakukan proses DOM dan REGEX untuk mendapatkan nama tokoh pada berita.
  */
