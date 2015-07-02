@@ -1,6 +1,5 @@
 
 import crawlertwitter.TwitterData;
-import crawlertwitter.TwitterDataStream;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -31,7 +30,8 @@ public class GetTwitterBySeach {
                 String[] data       = sCurrentLine.split(sParator);
                 TwitterData cr      = new TwitterData();
                 System.out.println(data[0]+" >> @"+data[1]);
-                cr.datasearch(data[1]);
+                String d = "Jokowi";
+                cr.datasearch(d);
             } 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GetTwitterBySeach.class.getName()).log(Level.SEVERE, null, ex);
