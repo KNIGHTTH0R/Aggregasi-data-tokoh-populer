@@ -22,6 +22,7 @@ public class TwitterData {
     public TwitterData(){
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
+          .setJSONStoreEnabled(true)
           .setOAuthConsumerKey(utils.OAuthUtils.TWITTER_CONSUMER_KEY)
           .setOAuthConsumerSecret(utils.OAuthUtils.TWITTER_CONSUMER_SECRET)
           .setOAuthAccessToken(utils.OAuthUtils.OAUTH_TOKEN)
@@ -30,16 +31,27 @@ public class TwitterData {
         twitter             = tf.getInstance();
     }
     
+    
     public void datasearch(String str_query)
     {
         
         try {
             Csv c               = new Csv();
             Query query         = new Query(str_query);
-            Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             Date date           = new Date();
+                        
+            int wantedTweets    = 112;
+            int remainingTweets = wantedTweets;
+            
             QueryResult result;
-            do {
+            
+            while(remainingTweets > 0)
+            {
+                if(remainingTweets > 100)
+                    query.count(100);
+                else
+                    query.count(remainingTweets);
+                
                 result = twitter.search(query);
                 List<Status> tweets = result.getTweets();
                 tweets.stream().forEach((Status tweet) -> {
@@ -48,25 +60,24 @@ public class TwitterData {
                             + tweet.getText() + " > "
                             + tweet.getCreatedAt() + ""
                             + tweet.getGeoLocation());
-                    
-                    // create data file csv
                     try {
+                        /**
                         c.writeCsvFile(str_query    +   "opinion_" +   date,
                                 String.valueOf(tweet.getId()),
                                 tweet.getUser().getScreenName(),
                                 tweet.getText().replaceAll("\n", ""),
-                                formatter.format(tweet.getCreatedAt()),
+                                formatter.format(tweet.getCreatedAt()), 
                                 ""+tweet.getGeoLocation()+"");
+                        **/
+                        c.writeJsonCsvFile(str_query    +   "opinion_" +   date, tweet);
                     } catch (IOException ex) {
                         java.util.logging.Logger.getLogger(TwitterData.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 });
-            } while ((query = result.nextQuery()) != null);
-            System.exit(0);
-        } catch (TwitterException te) {
-            if (te.getStatusCode() == 429) {
-                
             }
+            
+        } catch (TwitterException te) {
+            if (te.getStatusCode() == 429) {}
             te.printStackTrace();
             System.out.println("Failed to search tweets: " + te.getMessage());
             System.exit(-1);
@@ -125,4 +136,5 @@ public class TwitterData {
             System.exit(-1);
         }
     }
+
 }

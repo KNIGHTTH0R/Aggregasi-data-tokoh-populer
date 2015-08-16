@@ -31,8 +31,9 @@ public class GetTwitterByStream {
             
             while ((sCurrentLine  = buf.readLine()) != null) {
                 String[] keyword = sCurrentLine.split(sParator);
-                //String[] keyword  = {"Jokowi","jokowi_do2"};
+//                String[] keyword  = {"Jokowi","jokowi_do2"};
                 System.out.println(keyword[0]+" >> @"+keyword[1]);
+//                String[] keyword  = {"@jokowi_do2"};
                 twitter.startTwitter(keyword);
             }
         } catch (FileNotFoundException ex) {

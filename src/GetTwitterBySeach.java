@@ -22,16 +22,14 @@ public class GetTwitterBySeach {
         
         try {
             BufferedReader buf;
-            String sCurrentLine;
-            String sParator       = "\t";
-            buf                   = new BufferedReader(new FileReader(utils.TokohUntils.NAMA_TOKOH));
+            String sdata;
+            buf                   = new BufferedReader(new FileReader(utils.TokohUntils.NAMA_TOKOH_SEARCH));
             
-            while ((sCurrentLine  = buf.readLine()) != null) {
-                String[] data       = sCurrentLine.split(sParator);
+            while ((sdata  = buf.readLine()) != null) 
+            {
                 TwitterData cr      = new TwitterData();
-                System.out.println(data[0]+" >> @"+data[1]);
-                String d = "Jokowi";
-                cr.datasearch(d);
+                System.out.println(sdata+" >> ");
+                cr.datasearch(sdata);
             } 
         } catch (FileNotFoundException ex) {
             Logger.getLogger(GetTwitterBySeach.class.getName()).log(Level.SEVERE, null, ex);

@@ -13,6 +13,8 @@ import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import twitter4j.FilterQuery;
 import twitter4j.StallWarning;
 import twitter4j.Status;
@@ -30,12 +32,14 @@ public class TwitterDataStream {
     
     private final TwitterStream twitterStream; 
     String label = "";
+    String[] lang  = {"id"};
     FileOutputStream fos;
     
     public TwitterDataStream(){
         
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
+          .setJSONStoreEnabled(true)
           .setOAuthConsumerKey(utils.OAuthUtils.TWITTER_CONSUMER_KEY)
           .setOAuthConsumerSecret(utils.OAuthUtils.TWITTER_CONSUMER_SECRET)
           .setOAuthAccessToken(utils.OAuthUtils.OAUTH_TOKEN)
@@ -52,8 +56,13 @@ public class TwitterDataStream {
         
         twitterStream.addListener(listener);
         System.out.println("Starting down Twitter stream...");
-        FilterQuery query = new FilterQuery().track(keywords);
+        FilterQuery query = new FilterQuery();
+//        query.track(keywords);
+        query.language(this.lang);
+        // by filter
         twitterStream.filter(query);
+        
+//        twitterStream.sample();
  
     }
     
@@ -79,15 +88,20 @@ public class TwitterDataStream {
             System.out.println(status.getUser().getScreenName() + ": " + status.getText() + " > " + formatter.format(status.getCreatedAt()));
             
             try {
-//                 create data file csv
+                
+                /*
                 c.writeCsvFile("stream_"+label+"_"+date,
-                                String.valueOf(status.getId()),
-                                status.getUser().getScreenName(),
-                                status.getText(),
-                                formatter.format(status.getCreatedAt()),
-                                ""  + status.getGeoLocation()+"");
-            } catch (IOException e) {
-                e.printStackTrace();
+                String.valueOf(status.getId()),
+                status.getUser().getScreenName(),
+                status.getText(),
+                formatter.format(status.getCreatedAt()),
+                ""  + status.getGeoLocation()+"");
+                */
+                
+                c.writeJsonCsvFile("stream_"+label+"_"+date, status);
+            
+            } catch (IOException ex) {
+                Logger.getLogger(TwitterDataStream.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         @Override
