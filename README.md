@@ -22,5 +22,5 @@ Twitter4j  <a href="twitter4j.org"> http://twitter4j.org</a>
 Data yang didapatkan disimpan pada :
 
 1. Csv File
-2. MongoDb (on development)
+2. MongoDb
 
