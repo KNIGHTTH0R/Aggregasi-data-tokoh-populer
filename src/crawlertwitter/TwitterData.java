@@ -116,7 +116,7 @@ public class TwitterData {
     public void InfoUser (String at_user) throws IOException{
         
         try {
-            Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            //Format formatter    = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             User user           = twitter.showUser(at_user); 
             if (user.getStatus() != null) {
                 System.out.println("@" + user.getScreenName() + " - " + user.getDescription() +

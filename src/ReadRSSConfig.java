@@ -21,7 +21,8 @@ import org.xml.sax.SAXException;
  */
 public class ReadRSSConfig {
     
-    public static void main(String[] args) throws IOException, SAXException, InterruptedException {
+    @SuppressWarnings({ "resource", "unused" })
+	public static void main(String[] args) throws IOException, SAXException, InterruptedException {
         
         /**
          * Main function for <b>RSS CONFIG</b> data in directory conf

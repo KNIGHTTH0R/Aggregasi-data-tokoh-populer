@@ -20,7 +20,8 @@ import java.util.logging.Logger;
  */
 public class Userinfo {
     
-    public static void main(String[] args) throws IOException{
+    @SuppressWarnings("resource")
+	public static void main(String[] args) throws IOException{
       /**
          * Main function for get <b>TIMELINE</b> in twitter tokoh
          * file name keyword : nama_tokoh.txt

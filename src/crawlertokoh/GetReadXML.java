@@ -32,7 +32,8 @@ import org.xml.sax.SAXException;
 public class GetReadXML {
     
     
-    public String Getxml(URL url, String name) {
+    @SuppressWarnings("unused")
+	public String Getxml(URL url, String name) {
         InputStream is = null;
         BufferedWriter out = null;
         BufferedReader br;

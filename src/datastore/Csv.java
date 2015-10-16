@@ -12,6 +12,7 @@ import twitter4j.json.DataObjectFactory;
  *
  * @author ahmadluky 
  */
+@SuppressWarnings({ "unused", "deprecation" })
 public class Csv {
 
     //Delimiter used in CSV file

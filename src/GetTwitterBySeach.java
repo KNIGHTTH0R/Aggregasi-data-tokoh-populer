@@ -13,7 +13,8 @@ import org.xml.sax.SAXException;
  * @author ahmadluky
  */
 public class GetTwitterBySeach {
-    public static void main(String[] args) throws IOException, SAXException, InterruptedException {
+    @SuppressWarnings("resource")
+	public static void main(String[] args) throws IOException, SAXException, InterruptedException {
         
         /**
          * Main function for get <b>SEARCH</b> data twitter by keyword defined in directory result

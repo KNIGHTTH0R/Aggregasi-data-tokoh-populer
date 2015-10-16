@@ -15,7 +15,8 @@ import java.util.ArrayList;
 public class GetReadHtml {
     
     
-    public ArrayList<String> read_uri(String listUri) {
+    @SuppressWarnings("unused")
+	public ArrayList<String> read_uri(String listUri) {
 
         BufferedReader br = null;
         try {
@@ -43,7 +44,8 @@ public class GetReadHtml {
         }
     }
 	
-    public String GetHtml_Stream(String s, File file){
+    @SuppressWarnings("resource")
+	public String GetHtml_Stream(String s, File file){
 
         URL url;
         InputStream is = null;
