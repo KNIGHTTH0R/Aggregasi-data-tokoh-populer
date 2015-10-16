@@ -15,7 +15,8 @@ import org.xml.sax.SAXException;
  */
 public class GetTwitterByStream {
     
-    public static void main(String[] args) throws IOException, SAXException, InterruptedException {
+    @SuppressWarnings("resource")
+	public static void main(String[] args) throws IOException, SAXException, InterruptedException {
         
         /**
          * Main function for get <b>STREAMING</b> data twitter by keyword defined in directory result
