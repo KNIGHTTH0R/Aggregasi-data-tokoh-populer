@@ -1,9 +1,5 @@
 
 /**
- * @author ahmadluky
- */
-
-/**
  * Rule System
  * ===========
  * [1] Tedapat 2 file konfigurasi uri Rss media online (rss.conf) dan uri (list_uri.conf) 
