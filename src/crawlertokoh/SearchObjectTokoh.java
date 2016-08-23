@@ -8,29 +8,28 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SearchObjectTokoh {
-	
-    public void RegexKetua(String line, String file_result){
-        
-        /**
-         * PR 
-         */
-        String reg          =  "(?<=Ketua Umum: )(.*)(?=<br />)";
+    public void Kontekstual(String line, String file_result){
+        String reg0          =  "\\s* Gubernur \\s*([^\\s]*)";
+//        String reg1          =  "\\s* Presiden \\s*([^\\s]*)";
+//        String reg2          =  "\\s* Wakil Presiden \\s*([^\\s]*)";
+//        String reg3          =  "\\s* Walikota \\s*([^\\s]*)";
+//        String reg4          =  "\\s* Mentri \\s*([^\\s]*)";
+//        String reg5          =  "\\s* Ketua \\s*([^\\s]*)";
+//        String reg6          =  "\\s* Wakil Ketua \\s*([^\\s]*)";
+//        String reg7          =  "\\s* Bendahara \\s*([^\\s]*)";
         File file           =  new File(file_result);
         try {
-            Pattern r       =  Pattern.compile(reg);
-            Matcher m       =  r.matcher(line);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fileWritter = new FileWriter(file.getAbsoluteFile(),true);
             
+            Pattern r       =  Pattern.compile(reg0);
+            Matcher m       =  r.matcher(line);
             if(m.find()){
-                if (!file.exists()) {
-                    file.createNewFile();
-                }
-                FileWriter fileWritter = new FileWriter(file.getAbsoluteFile(),true);
-                try (BufferedWriter bufferWritter = new BufferedWriter(fileWritter)) 
-                {
+                try (BufferedWriter bufferWritter = new BufferedWriter(fileWritter)) {
                     bufferWritter.write(m.group()+"\n");
                 }
-            }else{
-                System.out.println("NO MATCH");
             }
 
         } catch (IOException e) {

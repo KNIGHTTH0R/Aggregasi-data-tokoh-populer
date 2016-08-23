@@ -5,9 +5,9 @@ import datastore.Csv;
 import java.io.IOException;
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+//import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
+//import java.util.logging.Level;
 import twitter4j.*;
 import twitter4j.conf.ConfigurationBuilder;
 
@@ -17,7 +17,7 @@ import twitter4j.conf.ConfigurationBuilder;
  */
 public class TwitterData {
     
-    private final Twitter twitter; 
+	private final Twitter twitter; 
     
     public TwitterData(){
         ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -31,7 +31,7 @@ public class TwitterData {
         twitter             = tf.getInstance();
     }
     
-    
+    /*
     public void datasearch(String str_query)
     {
         
@@ -61,6 +61,7 @@ public class TwitterData {
                             + tweet.getCreatedAt() + ""
                             + tweet.getGeoLocation());
                     try {
+                    **/
                         /**
                         c.writeCsvFile(str_query    +   "opinion_" +   date,
                                 String.valueOf(tweet.getId()),
@@ -69,6 +70,7 @@ public class TwitterData {
                                 formatter.format(tweet.getCreatedAt()), 
                                 ""+tweet.getGeoLocation()+"");
                         **/
+    /**
                         c.writeJsonCsvFile(str_query    +   "opinion_" +   date, tweet);
                     } catch (IOException ex) {
                         java.util.logging.Logger.getLogger(TwitterData.class.getName()).log(Level.SEVERE, null, ex);
@@ -83,7 +85,7 @@ public class TwitterData {
             System.exit(-1);
         }
     }
-    
+    **/
     public void datatimeline(String user) throws IOException{
         
         try {
