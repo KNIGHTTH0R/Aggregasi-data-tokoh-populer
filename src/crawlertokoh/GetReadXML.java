@@ -38,7 +38,6 @@ import org.apache.commons.lang.StringEscapeUtils;
  */
 public class GetReadXML {
     
-    
     @SuppressWarnings({ "unused", "resource" })
 	public String Getxml(URL url, String name) {
         InputStream is = null;
